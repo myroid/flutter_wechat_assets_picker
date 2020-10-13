@@ -772,7 +772,7 @@ class AssetPicker extends StatelessWidget {
 
   /// Animated backdrop widget for items.
   /// 部件选中时的动画遮罩部件
-  Widget _selectedBackdrop(
+  Widget selectedBackdrop(
     BuildContext context,
     int index,
     AssetEntity asset,
@@ -813,7 +813,7 @@ class AssetPicker extends StatelessWidget {
 
   /// Indicator for assets selected status.
   /// 资源是否已选的指示器
-  Widget _selectIndicator(AssetEntity asset) {
+  Widget selectIndicator(AssetEntity asset) {
     return Selector<AssetPickerProvider, List<AssetEntity>>(
       selector: (BuildContext _, AssetPickerProvider provider) =>
           provider.selectedAssets,
@@ -916,7 +916,7 @@ class AssetPicker extends StatelessWidget {
               ),
               itemCount: _assetsGridItemCount(_, currentAssets),
               itemBuilder: (BuildContext _, int index) {
-                return _assetGridItemBuilder(_, index, currentAssets);
+                return assetGridItemBuilder(_, index, currentAssets);
               },
             );
           },
@@ -970,7 +970,7 @@ class AssetPicker extends StatelessWidget {
   ///   * [AssetType.audio] -> [audioItemBuilder] 音频类型
   ///   * [AssetType.image], [AssetType.video] -> [imageAndVideoItemBuilder] 图片和视频类型
   /// * 在索引到达倒数第三列的时候加载更多资源。
-  Widget _assetGridItemBuilder(
+  Widget assetGridItemBuilder(
     BuildContext context,
     int index,
     List<AssetEntity> currentAssets,
@@ -1026,7 +1026,7 @@ class AssetPicker extends StatelessWidget {
         builder,
         if (specialPickerType != SpecialPickerType.wechatMoment ||
             asset.type != AssetType.video)
-          _selectIndicator(asset),
+          selectIndicator(asset),
       ],
     );
   }
@@ -1064,7 +1064,7 @@ class AssetPicker extends StatelessWidget {
           ),
         ),
         const Center(child: Icon(Icons.audiotrack)),
-        _selectedBackdrop(context, index, asset),
+        selectedBackdrop(context, index, asset),
         audioIndicator(asset),
       ],
     );
@@ -1115,7 +1115,7 @@ class AssetPicker extends StatelessWidget {
                               child: state.completedWidget,
                             ),
                           ),
-                          _selectedBackdrop(context, index, asset),
+                          selectedBackdrop(context, index, asset),
                           if (type == SpecialImageType.gif) // 如果为GIF则显示标识
                             gifIndicator,
                           if (asset.type == AssetType.video) // 如果为视频则显示标识
