@@ -882,7 +882,7 @@ class AssetPicker extends StatelessWidget {
 
   /// Item widgets when [AssetEntity.thumbData] load failed.
   /// 资源缩略数据加载失败时使用的部件
-  Widget get _failedItem => Center(
+  Widget get failedItem => Center(
         child: Text(
           Constants.textDelegate.loadFailed,
           textAlign: TextAlign.center,
@@ -914,7 +914,7 @@ class AssetPicker extends StatelessWidget {
                 mainAxisSpacing: itemSpacing,
                 crossAxisSpacing: itemSpacing,
               ),
-              itemCount: _assetsGridItemCount(_, currentAssets),
+              itemCount: assetsGridItemCount(_, currentAssets),
               itemBuilder: (BuildContext _, int index) {
                 return assetGridItemBuilder(_, index, currentAssets);
               },
@@ -925,7 +925,7 @@ class AssetPicker extends StatelessWidget {
 
   /// The function which return items count for the assets' grid.
   /// 为资源列表提供内容数量计算的方法
-  int _assetsGridItemCount(
+  int assetsGridItemCount(
     BuildContext context,
     List<AssetEntity> currentAssets,
   ) {
@@ -1128,7 +1128,7 @@ class AssetPicker extends StatelessWidget {
               );
               break;
             case LoadState.failed:
-              loader = _failedItem;
+              loader = failedItem;
               break;
           }
           return loader;

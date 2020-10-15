@@ -284,7 +284,7 @@ class AssetPickerViewerState extends State<AssetPickerViewer>
         loader = FadeImageBuilder(child: state.completedWidget);
         break;
       case LoadState.failed:
-        loader = _failedItem;
+        loader = failedItem;
         break;
     }
     return loader;
@@ -415,7 +415,7 @@ class AssetPickerViewerState extends State<AssetPickerViewer>
 
   /// Thumb item widgets in bottom detail.
   /// 底部信息栏单个资源缩略部件
-  Widget _bottomDetailItem(BuildContext _, int index) {
+  Widget bottomDetailItem(BuildContext _, int index) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 16.0),
       child: AspectRatio(
@@ -454,13 +454,13 @@ class AssetPickerViewerState extends State<AssetPickerViewer>
                             item = const SizedBox.shrink();
                             break;
                           case AssetType.image:
-                            item = _imagePreviewItem(asset);
+                            item = imagePreviewItem(asset);
                             break;
                           case AssetType.video:
-                            item = _videoPreviewItem(asset);
+                            item = videoPreviewItem(asset);
                             break;
                           case AssetType.audio:
-                            item = _audioPreviewItem(asset);
+                            item = audioPreviewItem(asset);
                             break;
                         }
                         return item;
@@ -494,7 +494,7 @@ class AssetPickerViewerState extends State<AssetPickerViewer>
 
   /// Preview item widgets for audios.
   /// 音频的底部预览部件
-  Widget _audioPreviewItem(AssetEntity asset) {
+  Widget audioPreviewItem(AssetEntity asset) {
     return ColoredBox(
       color: context.themeData.dividerColor,
       child: const Center(child: Icon(Icons.audiotrack)),
@@ -503,7 +503,7 @@ class AssetPickerViewerState extends State<AssetPickerViewer>
 
   /// Preview item widgets for images.
   /// 音频的底部预览部件
-  Widget _imagePreviewItem(AssetEntity asset) {
+  Widget imagePreviewItem(AssetEntity asset) {
     return Positioned.fill(
       child: RepaintBoundary(
         child: ExtendedImage(
@@ -519,11 +519,11 @@ class AssetPickerViewerState extends State<AssetPickerViewer>
 
   /// Preview item widgets for video.
   /// 音频的底部预览部件
-  Widget _videoPreviewItem(AssetEntity asset) {
+  Widget videoPreviewItem(AssetEntity asset) {
     return Positioned.fill(
       child: Stack(
         children: <Widget>[
-          _imagePreviewItem(asset),
+          imagePreviewItem(asset),
           Center(
             child: Icon(
               Icons.video_library,
@@ -568,9 +568,9 @@ class AssetPickerViewerState extends State<AssetPickerViewer>
                     final bool isSelected =
                         currentlySelectedAssets.contains(asset);
                     if (isAppleOS) {
-                      return _appleOSSelectButton(isSelected, asset);
+                      return appleOSSelectButton(isSelected, asset);
                     } else {
-                      return _androidSelectButton(isSelected, asset);
+                      return androidSelectButton(isSelected, asset);
                     }
                   },
                 ),
@@ -587,7 +587,7 @@ class AssetPickerViewerState extends State<AssetPickerViewer>
 
   /// Select button for apple OS.
   /// 苹果系列系统的选择按钮
-  Widget _appleOSSelectButton(bool isSelected, AssetEntity asset) {
+  Widget appleOSSelectButton(bool isSelected, AssetEntity asset) {
     return Padding(
       padding: const EdgeInsets.only(right: 10.0),
       child: GestureDetector(
@@ -629,7 +629,7 @@ class AssetPickerViewerState extends State<AssetPickerViewer>
 
   /// Select button for Android.
   /// 安卓系统的选择按钮
-  Widget _androidSelectButton(bool isSelected, AssetEntity asset) {
+  Widget androidSelectButton(bool isSelected, AssetEntity asset) {
     return RoundedCheckbox(
       value: isSelected,
       onChanged: (bool value) {
@@ -667,7 +667,7 @@ class AssetPickerViewerState extends State<AssetPickerViewer>
                     scrollDirection: Axis.horizontal,
                     padding: const EdgeInsets.symmetric(horizontal: 5.0),
                     itemCount: widget.selectedAssets.length,
-                    itemBuilder: _bottomDetailItem,
+                    itemBuilder: bottomDetailItem,
                   ),
                 ),
               ),
@@ -700,7 +700,7 @@ class AssetPickerViewerState extends State<AssetPickerViewer>
 
   /// The item widget when [AssetEntity.thumbData] load failed.
   /// 资源缩略数据加载失败时使用的部件
-  Widget get _failedItem => Center(
+  Widget get failedItem => Center(
         child: Text(
           Constants.textDelegate.loadFailed,
           textAlign: TextAlign.center,
